@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             x:Class="Standard.Views.MainPage"
+             Title="發票清單">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="測試" Command="{Binding TestCommand}"/>
+        <ToolbarItem Text="新增" Command="{Binding AddCommand}"/>
+        
+    </ContentPage.ToolbarItems>
+    <Grid
+        RowSpacing="0" ColumnSpacing="0">
+        <ListView
+            Margin="20,0"
+            ItemsSource="{Binding InvoiceSource}"
+            SelectedItem="{Binding InvoiceSelected}"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing}"
+            RefreshCommand="{Binding RefreshCommand}" >
+
+            <ListView.Behaviors>
+                <behavior:EventToCommandBehavior
+                    EventName="ItemTapped" Command="{Binding TapCommand}"/>
+            </ListView.Behaviors>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding InvoiceNo}"/>
+                            <Label Text="{Binding Amount}"/>
+                            <Label Text="{Binding Date, StringFormat='{0:yyyy-MM-dd}'}"/>
+                        </StackLayout>
+                    </ViewCell>
+                    
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="Standard.Views.DetailPage"
+             Title="發票明細">
+    <Grid
+        RowSpacing="0" ColumnSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+
+        <ScrollView
+            Grid.Row="0">
+            <StackLayout>
+                <Label Text="發票號碼"/>
+                <Entry Text="{Binding InvoiceSelected.InvoiceNo}"/>
+
+                <Label Text="發票名稱" Margin="0,10,0,0"/>
+                <Entry Text="{Binding InvoiceSelected.Title}"/>
+
+                <Label Text="發票金額" Margin="0,10,0,0"/>
+                <Entry Text="{Binding InvoiceSelected.Amount}"/>
+
+                <Label Text="發票日期" Margin="0,10,0,0"/>
+                <DatePicker Date="{Binding InvoiceSelected.Date}"/>
+
+                <Label Text="備註" Margin="0,10,0,0"/>
+                <Editor
+                HeightRequest="200"
+                Text="{Binding InvoiceSelected.Memo}"/>
+            </StackLayout>
+        </ScrollView>
+
+        <Grid
+            RowSpacing="0" ColumnSpacing="0"
+            Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0"
+                    Text="儲存" IsVisible="{Binding IsUpdate}"
+                    Command="{Binding SaveCommand}"/>
+            <Button Grid.Column="1"
+                    Text="刪除" IsVisible="{Binding IsUpdate}"
+                    BackgroundColor="Red" TextColor="White"
+                    Command="{Binding DeleteCommand}"/>
+            <Button Grid.Column="0" Grid.ColumnSpan="2"
+                    Text="儲存(新增模式)" IsVisible="{Binding IsAdd}"
+                    Command="{Binding SaveCommand}"/>
+        </Grid>
+    </Grid>
+  
+</ContentPage>
